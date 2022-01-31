@@ -1,0 +1,166 @@
+// Lowlands Tactical 3rd Generation Mission Template: description.ext
+// For usage see:
+// Reference: https://community.bistudio.com/wiki/Description.ext
+
+// PARAMETERS
+// Generic mission parameters to increase replayability
+class Params
+{
+
+	class lt_param_timer
+	{
+		title = "Mission safety timer (minutes)";
+		values[] = {0,1,2,3,4,5,6,7,8,9,10,15};
+		texts[] = {"No timer","1","2","3","4","5","6","7","8","9","10","15"};
+		default = 5;
+		code = "lt_param_mission_timer = %1";
+	};
+
+	class lt_param_weather
+	{
+		title = "Weather";
+		values[] = {0,1,2,3,4,5,6,7,8,9};
+		texts[] = {"Clear (Calm)","Clear (Light Winds)","Clear (Strong Winds)","Overcast (Calm)","Overcast (Light Winds)","Overcast (Strong Winds)","Rain (Light Winds)","Rain (Strong Winds)","Storm","Use mission settings"};
+		default = 9;
+		function = "LT_fnc_setWeather";		// This function is called to apply the values
+		isGlobal = 0;				// Execute this only on the server
+		code = "lt_param_weather = %1";
+	};
+
+	class lt_param_fog
+	{
+		title = "Fog";
+		values[] = {0,1,2,4};
+		texts[] = {"None","Light","Heavy","Use mission settings"};
+		default = 4;
+		function = "LT_fnc_SetFog";	// This function is called to apply the values
+		isGlobal = 0;			// Execute this only on the server
+		code = "lt_param_fog = %1";
+	};
+
+	class lt_param_timeOfDay
+	{
+		title = "Time of Day";
+		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
+		texts[] = {"0:00","1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","Use mission settings"};
+		default = 24;
+		function = "LT_fnc_setTime";	// This function is called to apply the values
+		isGlobal = 0;			// Execute this only on the server
+		code = "lt_param_timeOfDay = %1";
+	};
+	class lt_nvg_onoff
+	{
+		title = "Units have NVG's";
+		values[] = {0,1};
+		texts[] = {"No", "Yes"};
+		default = 1;
+	};
+    class lt_flashlight_setting
+    {
+        title = "Units use lamps:";
+        values[] = {0,1,2,3};
+        texts[] = {"Default", "Flashlights", "IR Laser", "Laser and Flashlights"};
+        default = 0;
+    };
+	class lt_fatigue_onoff
+	{
+		title = "Fatigue";
+		values[] = {0,1};
+		texts[] = {"No","Yes"};
+		default = 1;
+	};
+  class lt_markers
+  {
+    title = "Group markers";
+    values[] = {0,1};
+    texts[] = {"No","Yes"};
+    default = 0;
+  };
+};
+
+
+// DEBRIEFINGS
+// Default mission debriefings
+class CfgDebriefing
+{
+	class End1
+	{
+		title = "Missie geslaagd!";
+		subtitle = "De opdracht is succesvol afgerond.";
+		description = "De tegenstander zal nu wel 2 keer nadenken voordat ze met ons sollen!";
+		pictureBackground = "img\endfaction.paa";
+		picture = "\lt_template_base\logos\lowtac.paa";
+		// pictureColor[] = {0.0,0.3,0.6,1};
+	};
+
+	class End2
+	{
+		title = "Goed begin is het halve werk..";
+		subtitle = ".. Beetje jammer dat het maar de helft is!";
+		description = "Volgende keer gaan we wel alle doelstellingen halen?";
+		pictureBackground = "img\endmed.paa";
+		picture = "\lt_template_base\logos\lowtac.paa";
+		// pictureColor[] = {0.0,0.3,0.6,1};
+	};
+
+	class End3
+	{
+		title = "Missie gefaald";
+		subtitle = "Jammer joh";
+		description = "Terug naar Kamp Holland";
+		pictureBackground = "img\endbad.paa";
+		picture = "\lt_template_base\logos\lowtac.paa";
+		// pictureColor[] = {0.0,0.3,0.6,1};
+	};
+	class End4
+	{
+		title = "BLUFOR wins!";
+		subtitle = "Good job being total badasses BLUFOR!";
+		description = "You can laugh at everyone else now.";
+		pictureBackground = "img\endfaction.paa";
+		picture = "\lt_template_base\logos\lowtac.paa";
+		// pictureColor[] = {0.0,0.3,0.6,1};
+	};
+
+	class End5
+	{
+		title = "REDFOR wins!";
+		subtitle = "Good job being total badasses REDFOR!";
+		description = "You can laugh at everyone else now.";
+		pictureBackground = "img\endfaction.paa";
+		picture = "\lt_template_base\logos\lowtac.paa";
+		// pictureColor[] = {0.0,0.3,0.6,1};
+	};
+
+	class End6
+	{
+		title = "GREENFOR wins!";
+		subtitle = "Good job being total badasses GREENFOR!";
+		description = "You can laugh at everyone else now.";
+		pictureBackground = "img\endfaction.paa";
+		picture = "\lt_template_base\logos\lowtac.paa";
+		// pictureColor[] = {0.0,0.3,0.6,1};
+	};
+
+};
+
+
+// Basic Properties
+disableChannels[] = {0,2,4,5,6};
+enableItemsDropping = 0;
+allowFunctionsRecompile = 1;
+respawnOnStart = -1;
+
+// Custom camo's
+class CfgCamouflage {
+	//Add your own custom classes of camouflage as shown below:
+	/*
+	class LT_test_class1
+	{
+		text = "Guerilla";
+		data =  ["CUP_U_I_GUE_Anorak_03","V_Chestrig_blk","CUP_B_HikingPack_Civ","CUP_H_PMC_PRR_Headset","lt_tfr_dst"];
+	};
+	*/
+};
+
+#include "configs\CfgFunctions.hpp"
