@@ -1,0 +1,1 @@
+[this, 10, {}, -1, false, true, false, false] call FRED_fnc_vehicleRespawn;
